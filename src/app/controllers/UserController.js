@@ -1,14 +1,22 @@
 import passwordGenerator from "password-generator";
+import Mail from "../lib/Mail";
 
 export default {
   async store(req, res) {
-    const { nome, email } = req.body;
+    const { name, email } = req.body;
 
     const user = {
-      nome,
+      name,
       email,
       password: passwordGenerator(15, false),
     };
+
+    await Mail.sendMail({
+      from: "Node Background Tasks <node@node.com>",
+      to: `${name} < ${email} >`,
+      subject: "Cadastro de usuários",
+      html: `Olá, ${name}, bem-vindo`,
+    });
 
     return res.json(user);
   },
