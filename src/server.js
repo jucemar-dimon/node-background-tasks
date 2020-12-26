@@ -1,7 +1,10 @@
-const http = require("http");
+import "dotenv/config";
+import express from "express";
 
-const server = http.createServer((req, res) => {
-  res.end(`<html><body>Portal de notícias</body></html>`);
+const app = express();
+
+app.use(express.json());
+
+app.listen(process.env.PORT, () => {
+  console.log(`O servidor foi iniciado na porta ${process.env.PORT}`);
 });
-
-server.listen(3000);
